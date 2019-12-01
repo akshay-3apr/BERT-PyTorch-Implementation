@@ -58,7 +58,7 @@ There are two steps involved in BERT:
 With the basic understanding of the above two steps, lets deep dive to understand BERT framework.
 
 
-*   <h3>BERT Model Architecture:</h3>
+1.   <h3>BERT Model Architecture:</h3>
 BERT Model architecture is a multi-layer bidirectional Transformer encoder-decoder structure.
     
 ![](https://d3i71xaburhd42.cloudfront.net/0d2df885be9a4a8fe5cd9725d333c33ce6771057/2-Figure1-1.png)
@@ -84,6 +84,6 @@ BERT is pretrained using two unsupervised task:
         <li><b> Next Sentence Prediction (NSP)</b>: In order to train a model that understands sentence relationships, we pre-train for a next sentence prediction task. If there are two sentences A and B, BERT trains on 50% of the time with B as the actual next sentence that follows A (labeled as isNext), and 50% of the time it is a random sentence from the corpus (labeled as NotNext).
         </li>
         </ul>
-3.   <h3>Fine-tuning BERT:</h3>The self-attention mechanism in the Transformer allows BERT to model any downstream task. BERT with self-attention encodes a concatenated text pair, which effectively includes bidirectional cross attention between two sentences. For each task, we simply plug in the task specific inputs and outputs into BERT and fine-tune all the parameters end to end. At the output the token representations are fed into an output layer for token level tasks, such as sequence tagging or question answering, and the [CLS] representation is fed into an output layer for classification, such as sentimental analysis or entailment.
+3. <h3> Fine-tuning BERT:</h3>The self-attention mechanism in the Transformer allows BERT to model any downstream task. BERT with self-attention encodes a concatenated text pair, which effectively includes bidirectional cross attention between two sentences. For each task, we simply plug in the task specific inputs and outputs into BERT and fine-tune all the parameters end to end. At the output the token representations are fed into an output layer for token level tasks, such as sequence tagging or question answering, and the [CLS] representation is fed into an output layer for classification, such as sentimental analysis or entailment.
 
 <h2> Now, Lets start with BERT implementaion using PyTorch: </h2>
