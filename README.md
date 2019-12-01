@@ -32,7 +32,7 @@ The revolutionary NLP architecture, which marked the era of transfer learning in
 
 <h2>Previous NLP model Architectures </h2>
 
-![alt text](https://1.bp.blogspot.com/-RLAbr6kPNUo/W9is5FwUXmI/AAAAAAAADeU/5y9466Zoyoc96vqLjbruLK8i_t8qEdHnQCLcBGAs/s640/image3.png)
+![](https://1.bp.blogspot.com/-RLAbr6kPNUo/W9is5FwUXmI/AAAAAAAADeU/5y9466Zoyoc96vqLjbruLK8i_t8qEdHnQCLcBGAs/s640/image3.png)
 
 <i>BERT is deeply bidirectional, OpenAI GPT is unidirectional, and ELMo is shallowly bidirectional.</i>
 
@@ -70,13 +70,14 @@ BERT Model architecture is a multi-layer bidirectional Transformer encoder-decod
    *   <b>Attention</b>: Attention is a mechanism to know which word in the context, better contribute to the current word. It is calculated using the dot product between query vector Q and key vector K. The output from attention head is the weighted sum of value vector V, where the weights assigned to each value is computed by a compatibility function of the Query with the corresponding Key.
 The general formula that sums up the whole process of attention calculation in BERT is:
 
-   ![alt text](https://miro.medium.com/proxy/1*V6LGUR-0NmlOGmm0TDAa5g.png)
+   ![](https://miro.medium.com/proxy/1*V6LGUR-0NmlOGmm0TDAa5g.png)
 
    where, Q is the matrix of queries, K an V matrix represent keys and values.
 
    To fully understand the attention calculation with example, I would request you to go through the [Analytics Vidya blog](https://www.analyticsvidhya.com/blog/2019/06/understanding-transformers-nlp-state-of-the-art-models/?utm_source=blog&utm_medium=demystifying-bert-groundbreaking-nlp-framework)
 
-2.   <h3> Pre-training BERT:<h3> BERT is pretrained using two unsupervised task:
+2.   <h3> Pre-training BERT:</h3> 
+BERT is pretrained using two unsupervised task:
         <ul>
         <li> <b>Masked Language Model</b>: In order to train the bidirectional representation, BERT simply mask 15% of the input tokens at random, and then predict those masked tokens. A downside is that it creates a mismatch between pre-training and fine-tuning, since the [MASK] token does not appear during fine-tuning. To deal with this situation, BERT not always replaces the masked words with actual [MASKED] token. The BERT training data generator chooses 15% of the token positions at random for prediction. If the i-th token is chosen, BERT replaces the i-th token with: <ul><li> the [MASK] token 80% of the time</li><li>a random token 10% of the time</li><li>the unchanged i-th token 10% of the time</li></ul>
         </li>
