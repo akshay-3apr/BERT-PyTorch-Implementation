@@ -61,7 +61,7 @@ With the basic understanding of the above two steps, lets deep dive to understan
 *   <h3>BERT Model Architecture:</h3>
 BERT Model architecture is a multi-layer bidirectional Transformer encoder-decoder structure.
     
-![alt text](https://d3i71xaburhd42.cloudfront.net/0d2df885be9a4a8fe5cd9725d333c33ce6771057/2-Figure1-1.png)
+![](https://d3i71xaburhd42.cloudfront.net/0d2df885be9a4a8fe5cd9725d333c33ce6771057/2-Figure1-1.png)
 
    *   <b>Encoder</b>: Encoder is composed of a stack of N=6 identical layers. Each layer has two sub layers. The first layer is a multi-head self-attention mechanism, and the second is a position wise fully connected feed-forward network. There is a residual connection around each of the two sub layers, followed by layer normalization.
 
