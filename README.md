@@ -58,7 +58,7 @@ There are two steps involved in BERT:
 With the basic understanding of the above two steps, lets deep dive to understand BERT framework.
 
 
-1.   <h3>BERT Model Architecture:</h3>
+<ul><li><h3>1. BERT Model Architecture:</h3>
 BERT Model architecture is a multi-layer bidirectional Transformer encoder-decoder structure.
     
 ![](https://d3i71xaburhd42.cloudfront.net/0d2df885be9a4a8fe5cd9725d333c33ce6771057/2-Figure1-1.png)
@@ -75,15 +75,17 @@ The general formula that sums up the whole process of attention calculation in B
    where, Q is the matrix of queries, K an V matrix represent keys and values.
 
    To fully understand the attention calculation with example, I would request you to go through the [Analytics Vidya blog](https://www.analyticsvidhya.com/blog/2019/06/understanding-transformers-nlp-state-of-the-art-models/?utm_source=blog&utm_medium=demystifying-bert-groundbreaking-nlp-framework)
-
-2.   <h3> Pre-training BERT:</h3> 
+</li>
+<li><h3>2. Pre-training BERT:</h3> 
 BERT is pretrained using two unsupervised task:
         <ul>
         <li> <b>Masked Language Model</b>: In order to train the bidirectional representation, BERT simply mask 15% of the input tokens at random, and then predict those masked tokens. A downside is that it creates a mismatch between pre-training and fine-tuning, since the [MASK] token does not appear during fine-tuning. To deal with this situation, BERT not always replaces the masked words with actual [MASKED] token. The BERT training data generator chooses 15% of the token positions at random for prediction. If the i-th token is chosen, BERT replaces the i-th token with: <ul><li> the [MASK] token 80% of the time</li><li>a random token 10% of the time</li><li>the unchanged i-th token 10% of the time</li></ul>
         </li>
         <li><b> Next Sentence Prediction (NSP)</b>: In order to train a model that understands sentence relationships, we pre-train for a next sentence prediction task. If there are two sentences A and B, BERT trains on 50% of the time with B as the actual next sentence that follows A (labeled as isNext), and 50% of the time it is a random sentence from the corpus (labeled as NotNext).
-        </li>
-        </ul>
-3. <h3> Fine-tuning BERT:</h3>The self-attention mechanism in the Transformer allows BERT to model any downstream task. BERT with self-attention encodes a concatenated text pair, which effectively includes bidirectional cross attention between two sentences. For each task, we simply plug in the task specific inputs and outputs into BERT and fine-tune all the parameters end to end. At the output the token representations are fed into an output layer for token level tasks, such as sequence tagging or question answering, and the [CLS] representation is fed into an output layer for classification, such as sentimental analysis or entailment.
-
+        </li></ul>
+</li>
+<li>
+<h3>3. Fine-tuning BERT:</h3> 
+The self-attention mechanism in the Transformer allows BERT to model any downstream task. BERT with self-attention encodes a concatenated text pair, which effectively includes bidirectional cross attention between two sentences. For each task, we simply plug in the task specific inputs and outputs into BERT and fine-tune all the parameters end to end. At the output the token representations are fed into an output layer for token level tasks, such as sequence tagging or question answering, and the [CLS] representation is fed into an output layer for classification, such as sentimental analysis or entailment.
+</li></ul>
 <h2> Now, Lets start with BERT implementaion using PyTorch: </h2>
