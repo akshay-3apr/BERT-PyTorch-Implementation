@@ -1,5 +1,5 @@
 <h1> BERT: <i><b>B</b>idirectional <b>E</b>ncoder <b>R</b>epresentations from <b>T</b>ransformers</i></h1>
-<h6><i>created by Google AI Language Team in 2018</i></h6>
+
 BERT is designed to pre-train deep bidirectional representations from unlabelled text by jointly conditioning on both left and right context in all the layers. As a result, the pre-trained BERT model can be fine-tuned with just one additional output layer to create state-of-the-art models for a wide range of tasks, such as question answering and language inference, without substantial task-specific architecture modifications.
 BERT is trained on unlabelled dataset to achieve state of the art results on 11 individual NLP tasks. And all of this with little fine tuning.
 
@@ -38,14 +38,14 @@ The revolutionary NLP architecture, which marked the era of transfer learning in
 
 <b>ELMo</b> used weighted sum of forward (<i>context before the token/word</i>) and backward (<i>context after the token/word</i>) pass generated, Intermediate Word vectors from two stacked biLM layers and raw vector generated from character convolutions to produce the final ELMo vector. This helped ELMo look at the past and future context, basically the whole sentence to generate the word vector, resulting in unique vector for Polysemy words.
 
-The true power of transfer learning in NLP was unleashed after <b>ULMFiT</b> (<i>Universal Language Model Fine-tuning</i>). The concept revolved around having an Language Model (LM) trained on generic corpora. These LMs were based on same ideology what ImageNet helped to acheive transfer learning in Computer Vision. The stages in transfer learnng <b>pretraining</b> and <b>Fine-tuning</b> which is still followed now started with ULMFiT. In pretraining stage the LMs will be trained to learn generic information over language corpora. When fine-tuning the pretrained model to a downstream task, we will train the model on task specific data. Only the last few layers are the ones that will be trained from scratch. Resulting in better accurracy as the initial layers had generic language understanding and last layers had task specific information. BERT is based on the same idea that fine-tuning a pre-trained language model can help the model achieve better results in the downstream tasks.
+The true power of transfer learning in NLP was unleashed after <b>ULMFiT</b> (<i>Universal Language Model Fine-tuning</i>). The concept revolved around having a Language Model (LM) trained on generic corpora. These LMs were based on same ideology what ImageNet helped to achieve transfer learning in Computer Vision. The stages in transfer learnng <b>pretraining</b> and <b>Fine-tuning</b> which is still followed started with ULMFiT. In pretraining stage the LMs will be trained to learn generic information over language corpora. While fine-tuning the pretrained model to a downstream task, we will train the model on task specific data. Only the last few layers will be trained from scratch. This will result in better accurracy as the initial layers had generic language understanding and last layers had task specific information. BERT is also based on the idea that fine-tuning a pre-trained language model can help the model achieve better results in the downstream tasks.
 
 Following ELMo and UMLFiT on the same ground, came <b>OpenAI GPT</b>(<i>Generative Pre-trained Transformers</i>). OpenAI GPT was based on Transformer based network, as suggested in Google Brains research
-paper "[Attention is all you need](https://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf)". They replaced the whole LSTM architecture with encoder decoder layer stack. GPT also emphasized the importance of the Transformer framework, which has a simpler architecture and can train faster than an LSTM-based model. It is also able to learn complex patterns in the data by using the Attention mechanism. This started the breaktrough for NLP <i>state of the art</i> frameworks using <b>Transformers</b> which includes BERT.
+paper "[Attention is all you need](https://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf)". They replaced the whole LSTM architecture with encoder decoder layer stack. GPT also emphasized the importance of the Transformer framework, which has a simpler architecture and can train faster than LSTM-based model. It is also able to learn complex patterns in the data by using the Attention mechanism. This started the breaktrough for NLP <i>state of the art</i> frameworks using <b>Transformers</b> which includes BERT.
 
 
 <h2> Coming back to BERT... </h2>
-BERT surpass the unidirectionality constraints by using a “<i>Masked Language Model (MLM)</i>” pre-training objective. MLM randomly masks some of the tokens from the input, and the objective is to predict the original vocabulary id of the masked word based only on its context. It enables the representation to fuse the left and the right context, which allows us to pretrain a deep bidirectional Transformer. In addition to the MLM, BERT also uses a “<i> next sequence prediction</i>” task that jointly pretrains text-pair representations.
+BERT surpasses the unidirectionality constraints by using a “<i>Masked Language Model (MLM)</i>” pre-training objective. MLM randomly masks some of the tokens from the input, and the objective is to predict the original vocabulary id of the masked word based only on its context. It enables the representation to fuse the left and the right context, which allows us to pretrain a deep bidirectional Transformer. In addition to the MLM, BERT also uses a “<i> next sequence prediction</i>” task that jointly pretrains text-pair representations.
 
 There are two steps involved in BERT:
 
@@ -53,7 +53,7 @@ There are two steps involved in BERT:
 
 
 *   Pre-training: the model is trained on unlabelled data over different pre-training task.
-*   Fine-tuning: BERT model is first initialized with the pre-trained parameters, and all of the parameters are fine-tuned using labelled data from the downstream task.
+*   Fine-tuning: BERT model is first initialized with the pre-trained parameters and all of the parameters are fine-tuned using labelled data from the downstream task.
 
 With the basic understanding of the above two steps, lets deep dive to understand BERT framework.
 
@@ -63,29 +63,28 @@ BERT Model architecture is a multi-layer bidirectional Transformer encoder-decod
     
 ![](https://mchromiak.github.io/articles/2017/Sep/12/Transformer-Attention-is-all-you-need/img/encoder.png)
 
-   *   <b>Encoder</b>: Encoder is composed of a stack of N=6 identical layers. Each layer has two sub layers. The first layer is a multi-head self-attention mechanism, and the second is a position wise fully connected feed-forward network. There is a residual connection around each of the two sub layers, followed by layer normalization.
+   *   <b>Encoder</b>: Encoder is composed of a stack of N=6 identical layers. Each layer has two sub layers. The first layer is a multi-head self-attention mechanism and the second is a position wise fully connected feed-forward network. There is a residual connection around each of the two sub layers followed by layer normalization.
 
-   *   <b>Decoder</b>: Decoder is also composed of N=6 identical layers. Decoder has additional one sub-layer over two sub-layers as present in encoder, which performs multi-head attention over the output of the encoder stack. Similar to encoder we have residual connection around every sub-layers, followed by layer normalization.
+   *   <b>Decoder</b>: Decoder is also composed of N=6 identical layers. Decoder has additional one sub-layer over two sub-layers as present in encoder, which performs multi-head attention over the output of the encoder stack. Similar to encoder we have residual connection around every sub-layers followed by layer normalization.
 
-   *   <b>Attention</b>: Attention is a mechanism to know which word in the context, better contribute to the current word. It is calculated using the dot product between query vector Q and key vector K. The output from attention head is the weighted sum of value vector V, where the weights assigned to each value is computed by a compatibility function of the Query with the corresponding Key.
+   *   <b>Attention</b>: Attention is a mechanism to know which word in the context better contributes to the current word. It is calculated using the dot product between query vector Q and key vector K. The output from attention head is the weighted sum of value vector V, where the weights assigned to each value is computed by a compatibility function of the Query with the corresponding Key.
 The general formula that sums up the whole process of attention calculation in BERT is:
 
    ![](https://miro.medium.com/proxy/1*V6LGUR-0NmlOGmm0TDAa5g.png)
 
-   where, Q is the matrix of queries, K an V matrix represent keys and values.
+   where, Q is the matrix of queries, K and V matrix represent keys and values.
 
    To fully understand the attention calculation with example, I would request you to go through the [Analytics Vidya blog](https://www.analyticsvidhya.com/blog/2019/06/understanding-transformers-nlp-state-of-the-art-models/?utm_source=blog&utm_medium=demystifying-bert-groundbreaking-nlp-framework)
 </li>
 <li><h3>2. Pre-training BERT:</h3> 
 BERT is pretrained using two unsupervised task:
         <ul>
-        <li> <b>Masked Language Model</b>: In order to train the bidirectional representation, BERT simply mask 15% of the input tokens at random, and then predict those masked tokens. A downside is that it creates a mismatch between pre-training and fine-tuning, since the [MASK] token does not appear during fine-tuning. To deal with this situation, BERT not always replaces the masked words with actual [MASKED] token. The BERT training data generator chooses 15% of the token positions at random for prediction. If the i-th token is chosen, BERT replaces the i-th token with: <ul><li> the [MASK] token 80% of the time</li><li>a random token 10% of the time</li><li>the unchanged i-th token 10% of the time</li></ul>
+        <li> <b>Masked Language Model</b>: In order to train the bidirectional representation, BERT simply masks 15% of the input tokens at random and then predict those masked tokens. A downside is that it creates a mismatch between pre-training and fine-tuning, since the [MASK] token does not appear during fine-tuning. To deal with this situation, BERT not always replaces the masked words with actual [MASKED] token. The BERT training data generator chooses 15% of the token positions at random for prediction. If the i-th token is chosen, BERT replaces the i-th token with: <ul><li> the [MASK] token 80% of the time</li><li>a random token 10% of the time</li><li>the unchanged i-th token 10% of the time</li></ul>
         </li>
-        <li><b> Next Sentence Prediction (NSP)</b>: In order to train a model that understands sentence relationships, we pre-train for a next sentence prediction task. If there are two sentences A and B, BERT trains on 50% of the time with B as the actual next sentence that follows A (labeled as isNext), and 50% of the time it is a random sentence from the corpus (labeled as NotNext).
+        <li><b> Next Sentence Prediction (NSP)</b>: In order to train a model that understands sentence relationships, we pre-train for a next sentence prediction task. If there are two sentences A and B, BERT trains on 50% of the time with B as the actual next sentence that follows A (labeled as isNext) and 50% of the time it is a random sentence from the corpus (labeled as NotNext).
         </li></ul>
 </li>
 <li>
 <h3>3. Fine-tuning BERT:</h3> 
 The self-attention mechanism in the Transformer allows BERT to model any downstream task. BERT with self-attention encodes a concatenated text pair, which effectively includes bidirectional cross attention between two sentences. For each task, we simply plug in the task specific inputs and outputs into BERT and fine-tune all the parameters end to end. At the output the token representations are fed into an output layer for token level tasks, such as sequence tagging or question answering, and the [CLS] representation is fed into an output layer for classification, such as sentimental analysis or entailment.
 </li></ul>
-<h2> Now, Lets start with BERT implementaion using PyTorch: </h2>
