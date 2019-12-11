@@ -26,7 +26,7 @@ Consider an example:
 
 Above sentence can be explained mathematically as: <b>King - Man + Woman = Queen</b>
 
-And this can be achieved using word embeddings.Only issue with such word embeddings was with respect to the information they could store. Word2Vec could store only feedforward information. Resulting in same vectors for similar words used in different context. Such words are know as <b>Polysemy</b> words. To handle polysemy words, prediction led to more complex and deeper LSTM models.
+And this can be achieved using word embeddings. Only issue with such word embeddings was with respect to the information they could store. Word2Vec could store only feedforward information, resulting in same vectors for similar words used in different context. Such words are known as <b>Polysemy</b> words. To handle polysemy words, prediction led to more complex and deeper LSTM models.
 
 The revolutionary NLP architecture, which marked the era of transfer learning in NLP and also letting the model understand the syntax and semantics of a word, ELMo (<i>Embeddings from Language Models</i>) and ULMFit started the new trend. ELMo was then, the answer to the problem of <b>Polysemy</b> words- <i> same words having different meanings based on the context </i>.
 
